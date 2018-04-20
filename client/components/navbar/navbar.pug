@@ -1,0 +1,27 @@
+.navbar.navbar-default.navbar-static-top
+  .container
+    .navbar-header
+      button.navbar-toggle(type='button', (click)='isCollapsed = !isCollapsed')
+        span.sr-only Toggle navigation
+        span.icon-bar
+        span.icon-bar
+        span.icon-bar
+      a.navbar-brand(href='/') koindex
+    #navbar-main.navbar-collapse.collapse([collapse]='isCollapsed')
+      ul.nav.navbar-nav
+        li(*ngFor='let item of menu', routerLinkActive='active')
+          a(routerLink='{{item.link}}') {{item.title}}
+        li([hidden]='!isAdmin', routerLinkActive='active')
+          a(routerLink='/admin') Admin
+      ul.nav.navbar-nav.navbar-right
+        li([hidden]='isLoggedIn', routerLinkActive='active')
+          a(routerLink='/signup') Sign up
+        li([hidden]='isLoggedIn', routerLinkActive='active')
+          a(routerLink='/login') Login
+        li([hidden]='!isLoggedIn')
+          p.navbar-text Hello {{ currentUser.name }}
+        li([hidden]='!isLoggedIn', routerLinkActive='active')
+          a(routerLink='/settings')
+            span.glyphicon.glyphicon-cog
+        li([hidden]='!isLoggedIn')
+          a((click)='logout()', style='cursor: pointer;') Log out

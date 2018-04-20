@@ -1,0 +1,36 @@
+.container
+  .row
+    .col-sm-12
+      h1 Sign up
+    .col-sm-12
+      form.form(name='form', (ngSubmit)='register(signupForm)', novalidate='', #signupForm='ngForm')
+        .form-group([class.has-success]='name.valid && submitted', [class.has-error]='!name.valid && submitted')
+          label Name
+          input.form-control(type='text', name='name', [(ngModel)]='user.name', required='', #name='ngModel')
+          p.help-block([hidden]='name.valid || (name.pristine && !signupForm.submitted)')
+            | A name is required
+        .form-group([class.has-success]='email.valid && signupForm.submitted', [class.has-error]='!email.valid && signupForm.submitted')
+          label Email
+          input.form-control(type='email', name='email', [(ngModel)]='user.email', required='', mongoose-error='', #email='ngModel')
+          p.help-block([hidden]='email.valid || (email.pristine && !signupForm.submitted) || (email.errors ? email.errors.inUse : true)')
+            | Please enter a valid email address.
+          p.help-block([hidden]='email.errors ? !email.errors.inUse : true')
+            | This email address is already in use.
+        .form-group([class.has-success]='password.valid || (password.pristine && !signupForm.submitted)', [class.has-error]='!password.valid || (password.pristine && !signupForm.submitted)')
+          label Password
+          input.form-control(type='password', name='password', [(ngModel)]='user.password', minlength='8', maxlength='128', required='', mongoose-error='', #password='ngModel')
+          p.help-block([hidden]='password.valid || (password.pristine && !signupForm.submitted)')
+            | Password must be between 8 and 128 characters.
+          p.help-block([hidden]='errors.password')
+            | {{ errors.password }}
+        .form-group([class.has-success]='confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)', [class.has-error]='!confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)')
+          label Confirm Password
+          input.form-control(type='password', name='confirmPassword', [(ngModel)]='user.confirmPassword', ac-match-control='password', required='', #confirmPassword='ngModel')
+          p.help-block([hidden]='confirmPassword.valid || (confirmPassword.pristine && !signupForm.submitted)')
+            | Please confirm your password. Passwords must match.
+        div
+          button.btn.btn-inverse.btn-lg.btn-register(type='submit', [disabled]='!signupForm.form.valid')
+            | Sign up
+          a.btn.btn-default.btn-lg.btn-login(href='/login')
+            | Login
+  hr

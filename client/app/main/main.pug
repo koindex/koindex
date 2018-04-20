@@ -1,0 +1,20 @@
+header#banner.hero-unit
+  .container
+    h1 &apos;Allo, &apos;Allo!
+    p.lead Kick-start your next web app with Angular Fullstack
+    img(src='assets/images/yeoman.png', alt="I'm Yeoman")
+.container
+  .row
+    .col-lg-12
+      h1.page-header Features:
+      ul.nav.nav-tabs.nav-stacked.col-md-4.col-lg-4.col-sm-6(*ngFor='let thing of awesomeThings')
+        li
+          a([tooltip]='thing.info')
+            | {{thing.name}}
+            button.close(type='button', (click)='deleteThing(thing)') &times;
+  form.thing-form
+    label Syncs in realtime across clients
+    p.input-group
+      input.form-control(type='text', placeholder='Add a new thing here.', [(ngModel)]='newThing', name='thing')
+      span.input-group-btn
+        button.btn.btn-primary(type='submit', (click)='addThing()') Add New

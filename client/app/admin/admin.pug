@@ -1,0 +1,11 @@
+.container
+  p
+    | The delete user and user index api routes are restricted to users with the &apos;admin&apos; role.
+  ul.list-group.user-list
+    li.list-group-item(*ngFor='let user of users')
+      .user-info
+        strong {{user.name}}
+        br
+        span.text-muted {{user.email}}
+      a.trash((click)='delete(user)')
+        span.fa.fa-trash.fa-2x
