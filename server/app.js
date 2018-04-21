@@ -28,16 +28,16 @@ function startServer() {
     });
 }
 
-sqldb.sequelize.sync()
-  .then(wsInitPromise)
-  .then(primus => {
-      app.primus = primus;
-  })
-  .then(seedDatabaseIfNeeded)
-  .then(startServer)
-  .catch(err => {
-      console.log('Server failed to start due to error: %s', err);
-  });
+// sqldb.sequelize.sync()
+//   .then(wsInitPromise)
+//   .then(primus => {
+//       app.primus = primus;
+//   })
+//   .then(seedDatabaseIfNeeded)
+//   .then(startServer)
+//   .catch(err => {
+//       console.log('Server failed to start due to error: %s', err);
+//   });
 
 // Expose app
 exports = module.exports = app;

@@ -5,9 +5,9 @@
 // ===========================
 module.exports = {
     // MongoDB connection options
-    mongo: {
-        uri: 'mongodb://localhost/koindex-test'
-    },
+    // mongo: {
+    //     uri: 'mongodb://localhost/koindex-test'
+    // },
     sequelize: {
         uri: 'sqlite://',
         options: {

@@ -52,7 +52,7 @@ export default function(app) {
         secret: config.secrets.session,
         saveUninitialized: true,
         resave: false,
-        store: new Store(sqldb.sequelize)
+        //store: new Store(sqldb.sequelize)
     }));
 
     /**
