@@ -38,6 +38,7 @@ function startServer() {
 //   .catch(err => {
 //       console.log('Server failed to start due to error: %s', err);
 //   });
+startServer();
 
 // Expose app
 exports = module.exports = app;
