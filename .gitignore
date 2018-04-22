@@ -57,3 +57,12 @@ typings/
 # dotenv environment variables file
 .env
 
+# Package ignore
+package-lock.json
+
+# bootstrap font
+client/assets/fonts/
+
+# development Database
+.sqlite
+
