@@ -87,7 +87,7 @@ yo angular-fullstack
     * Authentication boilerplate: `Yes`, `No`
     * oAuth integrations: `Facebook`, `Twitter`, `Google`
     * Socket.io integration: `Yes`, `No`
-
+ 
 
 ## Generators
 
@@ -183,25 +183,38 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 
 [![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)
 
-## Database Setup
+## Add New Database Configurations
 
-Configure database parameters in server/config/environment/index.js
+Configure database parameters in `server/config/environment/index.js`
 
-An example of postgres database configuration added into variable 'all':
+An example of postgres database configuration added into variable `all`
 
 postgres: {      
+    
     uri: process.env.POSTGRES_URL ||
+         
          'postgres://user:pass@localhost:5432/progres',
+         
           options: {
+            
              db: {
+            
                  safe: true
+            
                 }
+            
             }
+    
     },
+    
     database: 'example',
+    
     username: 'example',
+    
     password: 'example',
+    
     seedDB: true,
+
 };
 
 
