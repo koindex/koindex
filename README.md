@@ -182,3 +182,26 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 <a href="https://opencollective.com/angular-fullstack/sponsor/10/website" target="_blank"><img src="https://opencollective.com/angular-fullstack/sponsor/10/avatar"></a>
 
 [![generator-angular-fullstack](https://angular-fullstack.github.io/assets/angular-fullstack-boxes.svg)](https://angular-fullstack.github.io/)
+
+## Database Setup
+
+Configure database parameters in server/config/environment/index.js
+
+An example of postgres database configuration added into variable 'all':
+
+postgres: {      
+    uri: process.env.POSTGRES_URL ||
+         'postgres://user:pass@localhost:5432/progres',
+          options: {
+             db: {
+                 safe: true
+                }
+            }
+    },
+    database: 'example',
+    username: 'example',
+    password: 'example',
+    seedDB: true,
+};
+
+
