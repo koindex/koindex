@@ -217,26 +217,27 @@ postgres: {
 
 };
 
-* The function to test DB connection 
+* The function to test DB connection : {
 
-function testDB(){
+  function testDB(){
 
-  sqldb.sequelize
+    sqldb.sequelize
 
-  .authenticate()
+    .authenticate()
 
-  .then(() => {
+    .then(() => {
 
-    console.log('Connection has been established successfully.');
+      console.log('Connection has been established successfully.');
 
-  })
+    })
 
-  .catch(err => {
+    .catch(err => {
 
-    console.error('Unable to connect to the database:', err);
+      console.error('Unable to connect to the database:', err);
 
-  });
+    });
 
-}
+  }
 
+};
 
