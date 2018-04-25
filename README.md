@@ -217,7 +217,7 @@ postgres: {
 
 };
 
-* The function to test DB connection : {
+The function to test DB connection: {
 
   function testDB(){
 
