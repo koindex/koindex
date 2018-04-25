@@ -185,7 +185,7 @@ Is your company using Angular-FullStack? Ask your boss to support the project. Y
 
 ## Add New Database Configurations
 
-Configure database parameters in `server/config/environment/index.js`
+Configure database parameters in `server/config/environment/index.js`, 
 
 An example of postgres database configuration added into variable `all`
 
@@ -193,7 +193,7 @@ postgres: {
     
     uri: process.env.POSTGRES_URL ||
          
-         'postgres://user:pass@localhost:5432/progres',
+         'postgres://username:password@localhost:5432/database',
          
           options: {
             
@@ -217,7 +217,15 @@ postgres: {
 
 };
 
-The function to test DB connection: {
+Configure database parameters in `server/config/environment/development.js`, `server/config/environment/production.js`,
+
+sequelize: {
+
+uri: process.env.POSTGRES_URL || 'postgres://username:password@localhost:5432/database',
+
+};
+
+The function to test DB connection: 
 
   function testDB(){
 
@@ -239,5 +247,4 @@ The function to test DB connection: {
 
   }
 
-};
 
