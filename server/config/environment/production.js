@@ -15,8 +15,8 @@ module.exports = {
         || 8080,
 
     sequelize: {
-        uri: process.env.SEQUELIZE_URI
-            || 'sqlite://',
+        uri: process.env.SEQUELIZE_URI||
+         'postgres://coinboy:password@localhost:5432/postgres',
         options: {
             logging: false,
             storage: 'dist.sqlite',

@@ -44,14 +44,14 @@ var all = {
      // Postgres connection options
     postgres: {
           uri: process.env.POSTGRES_URL ||
-         'postgres://user:pass@localhost:5432/progres',
+         'postgres://coinboy:password@localhost:5432/postgres',
           options: {
              db: {
                  safe: true
                 }
             }
     },
-    database: 'progres',
+    database: 'postgres',
     username: 'coinboy',
     password: 'password',
     // Should we populate the DB with sample data?

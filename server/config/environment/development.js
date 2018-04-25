@@ -7,7 +7,8 @@ module.exports = {
 
     // Sequelize connection opions
     sequelize: {
-        uri: 'sqlite://',
+        uri: process.env.POSTGRES_URL ||
+         'postgres://coinboy:password@localhost:5432/postgres',
         options: {
             logging: false,
             storage: 'dev.sqlite',
