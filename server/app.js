@@ -23,22 +23,35 @@ registerRoutes(app);
 
 // Start server
 function startServer() {
+    testDB();
     app.angularFullstack = server.listen(config.port, config.ip, function() {
         console.log('Express server listening on %d, in %s mode', config.port, app.get('env'));
     });
 }
 
-// sqldb.sequelize.sync()
-//   .then(wsInitPromise)
-//   .then(primus => {
-//       app.primus = primus;
-//   })
-//   .then(seedDatabaseIfNeeded)
-//   .then(startServer)
-//   .catch(err => {
-//       console.log('Server failed to start due to error: %s', err);
-//   });
-startServer();
+//Test DB connection
+function testDB(){
+  sqldb.sequelize
+  .authenticate()
+  .then(() => {
+    console.log('Connection has been established successfully.');
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err);
+  });
+}
+
+   sqldb.sequelize.sync()
+   .then(wsInitPromise)
+   .then(primus => {
+       app.primus = primus;
+   })
+   .then(seedDatabaseIfNeeded)
+   .then(startServer)
+   .catch(err => {
+       console.log('Server failed to start due to error: %s', err);
+   });
+//startServer();
 
 // Expose app
 exports = module.exports = app;

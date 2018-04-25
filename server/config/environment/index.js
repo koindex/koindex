@@ -28,9 +28,6 @@ var all = {
     // Server IP
     ip: process.env.IP || '0.0.0.0',
 
-    // Should we populate the DB with sample data?
-    seedDB: false,
-
     // Secret for session, you will want to change this and make it an environment variable
     secrets: {
         session: 'koindex-secret'
@@ -44,6 +41,21 @@ var all = {
     //         }
     //     }
     // }
+     // Postgres connection options
+    postgres: {
+          uri: process.env.POSTGRES_URL ||
+         'postgres://user:pass@localhost:5432/progres',
+          options: {
+             db: {
+                 safe: true
+                }
+            }
+    },
+    database: 'progres',
+    username: 'coinboy',
+    password: 'password',
+    // Should we populate the DB with sample data?
+    seedDB: true,
 };
 
 // Export the config object based on the NODE_ENV
