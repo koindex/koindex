@@ -65,4 +65,4 @@ client/assets/fonts/
 
 # development Database
 .sqlite
-
+.tmp/
