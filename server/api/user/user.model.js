@@ -34,6 +34,8 @@ export default function(sequelize, DataTypes) {
                 notEmpty: true
             }
         },
+        balance: DataTypes.DECIMAL(19, 2).UNSIGNED,
+        creat_at: DataTypes.DATE,
         provider: DataTypes.STRING,
         salt: DataTypes.STRING
     }, {

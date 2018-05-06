@@ -64,5 +64,5 @@ package-lock.json
 client/assets/fonts/
 
 # development Database
-.sqlite
+*.sqlite
 

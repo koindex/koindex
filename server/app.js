@@ -3,7 +3,7 @@
  */
 
 'use strict';
-
+import Sequelize from 'sequelize';
 import express from 'express';
 import sqldb from './sqldb';
 import config from './config/environment';
@@ -41,17 +41,17 @@ function testDB(){
   });
 }
 
-   sqldb.sequelize.sync()
+  // force: true will drop the table if it already exists
+   sqldb.sequelize.sync({force: true})
    .then(wsInitPromise)
    .then(primus => {
-       app.primus = primus;
+   app.primus = primus;
    })
    .then(seedDatabaseIfNeeded)
    .then(startServer)
    .catch(err => {
        console.log('Server failed to start due to error: %s', err);
    });
-//startServer();
 
 // Expose app
 exports = module.exports = app;

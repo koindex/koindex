@@ -11,6 +11,9 @@ export default function(app) {
     // Insert routes below
     app.use('/api/things', require('./api/thing'));
     app.use('/api/users', require('./api/user'));
+    app.use('/api/orders', require('./api/order'));
+    app.use('/api/transactions', require('./api/transaction'));
+    app.use('/api/trades', require('./api/trade'));
     app.use('/auth', require('./auth').default);
 
     // All undefined asset or api routes should return a 404

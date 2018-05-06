@@ -9,6 +9,10 @@ import primusEmit from 'primus-emit';
 const registerFunctions = [
     // Insert sockets below
     require('../api/thing/thing.socket').register,
+    require('../api/order/order.socket').register,
+    require('../api/transaction/transaction.model').register,
+    require('../api/order/order.model').register,
+    require('../api/trade/trade.model').register
 ];
 
 // When the user disconnects.. perform this
