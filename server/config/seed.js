@@ -14,6 +14,7 @@ export default function seedDatabaseIfNeeded() {
 
     let Thing = sqldb.Thing;
     let User = sqldb.User;
+    let Transaction = sqldb.Transaction;
 
     let promises = [];
 
@@ -49,7 +50,8 @@ export default function seedDatabaseIfNeeded() {
         provider: 'local',
         name: 'Test User',
         email: 'test@example.com',
-        password: 'test'
+        password: 'test',
+        balance: 10.13
     }, {
         provider: 'local',
         role: 'admin',

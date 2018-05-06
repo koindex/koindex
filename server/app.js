@@ -3,7 +3,7 @@
  */
 
 'use strict';
-
+import Sequelize from 'sequelize';
 import express from 'express';
 import sqldb from './sqldb';
 import config from './config/environment';
