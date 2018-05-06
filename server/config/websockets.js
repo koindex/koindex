@@ -10,9 +10,8 @@ const registerFunctions = [
     // Insert sockets below
     require('../api/thing/thing.socket').register,
     require('../api/order/order.socket').register,
-    require('../api/transaction/transaction.model').register,
-    require('../api/order/order.model').register,
-    require('../api/trade/trade.model').register
+    require('../api/transaction/transaction.socket').register,
+    require('../api/trade/trade.socket').register
 ];
 
 // When the user disconnects.. perform this

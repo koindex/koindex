@@ -30,27 +30,26 @@ function startServer() {
 }
 
 //Test DB connection
-function testDB(){
-  sqldb.sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
+function testDB() {
+    sqldb.sequelize
+    .authenticate()
+    .then(() => {
+        console.log('Connection has been established successfully.');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
 }
 
-  // force: true will drop the table if it already exists
-   sqldb.sequelize.sync({force: true})
-   .then(wsInitPromise)
-   .then(primus => {
+sqldb.sequelize.sync()
+.then(wsInitPromise)
+.then(primus => {
    app.primus = primus;
-   })
-   .then(seedDatabaseIfNeeded)
-   .then(startServer)
-   .catch(err => {
-       console.log('Server failed to start due to error: %s', err);
+})
+.then(seedDatabaseIfNeeded)
+.then(startServer)
+.catch(err => {
+   console.log('Server failed to start due to error: %s', err);
    });
 
 // Expose app

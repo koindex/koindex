@@ -43,13 +43,13 @@ var all = {
     // }
      // Postgres connection options
     postgres: {
-          uri: process.env.POSTGRES_URL ||
-         'postgres://coinboy:password@localhost:5432/postgres',
-          options: {
-             db: {
-                 safe: true
-                }
+        uri: process.env.POSTGRES_URL ||
+       'postgres://coinboy:password@localhost:5432/postgres',
+        options: {
+            db: {
+               safe: true
             }
+        }
     },
     database: 'postgres',
     username: 'coinboy',
