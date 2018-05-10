@@ -63,6 +63,9 @@ package-lock.json
 # bootstrap font
 client/assets/fonts/
 
+# IDE
+.idea/
+
 # development Database
 *.sqlite
 .tmp/
