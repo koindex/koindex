@@ -41,7 +41,7 @@ function testDB() {
     });
 }
 
-sqldb.sequelize.sync()
+sqldb.sequelize.sync({force: true})
 .then(wsInitPromise)
 .then(primus => {
    app.primus = primus;
