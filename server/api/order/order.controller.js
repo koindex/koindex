@@ -11,7 +11,7 @@
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
-import {order} from '../../sqldb';
+import {Order} from '../../sqldb';
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -63,14 +63,14 @@ function handleError(res, statusCode) {
 
 // Gets a list of orders
 export function index(req, res) {
-    return order.findAll()
+    return Order.findAll()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
 // Gets a single order from the DB
 export function show(req, res) {
-    return order.find({
+    return Order.find({
         where: {
             _id: req.params.id
         }
@@ -82,7 +82,7 @@ export function show(req, res) {
 
 // Creates a new order in the DB
 export function create(req, res) {
-    return order.create(req.body)
+    return Order.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
@@ -93,7 +93,7 @@ export function upsert(req, res) {
         Reflect.deleteProperty(req.body, '_id');
     }
 
-    return order.upsert(req.body, {
+    return Order.upsert(req.body, {
         where: {
             _id: req.params.id
         }
@@ -107,7 +107,7 @@ export function patch(req, res) {
     if(req.body._id) {
         Reflect.deleteProperty(req.body, '_id');
     }
-    return order.find({
+    return Order.find({
         where: {
             _id: req.params.id
         }
@@ -120,7 +120,7 @@ export function patch(req, res) {
 
 // Deletes a order from the DB
 export function destroy(req, res) {
-    return order.find({
+    return Order.find({
         where: {
             _id: req.params.id
         }

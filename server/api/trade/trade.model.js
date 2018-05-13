@@ -11,16 +11,16 @@ export default function(sequelize, DataTypes) {
         bid_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: "Users",
-                key: "_id"
+                model: 'Users',
+                key: '_id'
             }
 
         },
         ask_id: {
             type: DataTypes.INTEGER,
             references: {
-                model: "Users",
-                key: "_id"
+                model: 'Users',
+                key: '_id'
             }
 
         },
