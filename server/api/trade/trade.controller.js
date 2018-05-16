@@ -72,7 +72,7 @@ export function index(req, res) {
 export function show(req, res) {
     return Trade.find({
         where: {
-            _id: req.params.id
+            trade_id: req.params.id
         }
     })
     .then(handleEntityNotFound(res))
@@ -127,5 +127,16 @@ export function destroy(req, res) {
     })
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+export function findByPair(req, res) {
+    return Trade.find({
+        where: {
+            pair: req.params.pair
+        }
+    })
+    .then(handleEntityNotFound(res))
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }
