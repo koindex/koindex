@@ -27,7 +27,7 @@ export default function(sequelize, DataTypes) {
         price: DataTypes.DECIMAL(19, 2).UNSIGNED,
         volumn: DataTypes.DECIMAL(19, 2).UNSIGNED,
         create_at: DataTypes.DATE,
-        currency: DataTypes.INTEGER,
+        pair: DataTypes.STRING,
         total_amount: DataTypes.DECIMAL(19, 2).UNSIGNED,
     });
 }

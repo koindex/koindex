@@ -15,6 +15,7 @@ export default function seedDatabaseIfNeeded() {
     let Thing = sqldb.Thing;
     let User = sqldb.User;
     let Transaction = sqldb.Transaction;
+    let Trade = sqldb.Trade;
 
     let promises = [];
 
@@ -62,6 +63,24 @@ export default function seedDatabaseIfNeeded() {
       .then(() => console.log('finished populating users'))
       .catch(err => console.log('error populating users', err)));
     promises.push(userPromise);
+
+    /*let tradePromise = Trade.destroy({ where: {} })
+    .then(() => Trade.bulkCreate([{
+        bid_id: 2,
+        ask_id: 2,
+        price: 12,
+        volumn: 10,
+        pair: 'BTC-ETH'
+    }, {
+        bid_id: 1,
+        ask_id: 2,
+        price: 122,
+        volumn: 123,
+        pair: 'USD-ETH'
+    }])
+      .then(() => console.log('finished populating trades'))
+      .catch(err => console.log('error populating trades', err)));
+    promises.push(tradePromise);*/
 
     return Promise.all(promises);
 }
