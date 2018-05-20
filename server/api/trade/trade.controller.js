@@ -12,6 +12,9 @@
 
 import { applyPatch } from 'fast-json-patch';
 import {Trade} from '../../sqldb';
+import redis from '../../components/redis';
+import moment from 'moment';
+import * as utils from '../../components/utils';
 
 function respondWithResult(res, statusCode) {
     statusCode = statusCode || 200;
@@ -59,6 +62,55 @@ function handleError(res, statusCode) {
     return function(err) {
         res.status(statusCode).send(err);
     };
+}
+
+
+export async function addToTrade(pair, price, quantity, takerUserId, makerUserId, takerOrderId, makerOrderId, isBidUserTaker) {
+    return new Promise((resolve, reject) => {
+        // if BidUserTaker then RED else GREEN
+        let color;
+        let bidUserId;
+        let askUserId;
+        let bidOrderId;
+        let askOrderId;
+        if(isBidUserTaker === true) {
+            color = 'RED';
+            bidUserId = takerUserId;
+            askUserId = makerUserId;
+            bidOrderId = takerOrderId;
+            askOrderId = makerOrderId;
+        } else {
+            color = 'GREEN';
+            bidUserId = makerUserId;
+            askUserId = takerUserId;
+            bidOrderId = makerOrderId;
+            askOrderId = takerOrderId;
+        }
+        let timeOfTrade = moment()
+            .unix();
+        let tradeId = utils.generateHash();
+        let insert = {
+            price: price,
+            volume: quantity,
+            totalAmount: price * quantity,
+            bidUserId: bidUserId,
+            askUserId: askUserId,
+            bidOrderId: bidOrderId,
+            askOrderId: askOrderId,
+            tradeId: tradeId,
+            createdAt: timeOfTrade,
+            color: color
+        };
+        redis.zadd(`TRADESET_${pair}`, timeOfTrade, JSON.stringify(insert), (err, reply) => {
+            if(err) {
+                //handle error case here
+                reject(err);
+            } else {
+                // not necessary needed, it returns 0 after insertion.
+                resolve(reply);
+            }
+        });
+    });
 }
 
 // Gets a list of Trades
