@@ -83,4 +83,12 @@ describe('Trade API Router:', function() {
         ).to.have.been.calledOnce;
         });
     });
+
+    describe('GET /api/trades/pair/:pair', function() {
+        it('should route to trade.controller.findByPair', function() {
+            expect(routerStub.get
+        .withArgs('/:pair', 'tradeCtrl.findByPair')
+        ).to.have.been.calledOnce;
+        });
+    });
 });
