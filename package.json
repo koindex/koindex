@@ -146,7 +146,8 @@
     "typescript": "~2.6.1",
     "webpack": "^3.5.5",
     "webpack-dev-server": "^2.4.2",
-    "zone.js": "^0.8.12"
+    "zone.js": "^0.8.12",
+    "redis": "^2.8.0"
   },
   "engines": {
     "node": "^6.2.2",
@@ -165,7 +166,7 @@
     "update-webdriver": "node node_modules/protractor/bin/webdriver-manager update",
     "start": "node server",
     "start:client": "webpack-dev-server --config webpack.dev.js",
-    "start:server": "node server"
+    "start:server": "node $NODE_DEBUG_OPTION server"
   },
   "private": true
 }
