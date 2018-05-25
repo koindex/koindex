@@ -15,8 +15,8 @@ import redis from './components/redis';
 
 
 // Setup server
-var app = express();
-var server = http.createServer(app);
+let app = express();
+let server = http.createServer(app);
 const wsInitPromise = initWebSocketServer(server);
 expressConfig(app);
 registerRoutes(app);
@@ -33,16 +33,17 @@ function startServer() {
 //Test DB connection
 function testDB() {
     sqldb.sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.');
-    })
-    .catch(err => {
-        console.error('Unable to connect to the database:', err);
-    });
+        .authenticate()
+        .then(() => {
+            console.log('Connection has been established successfully.');
+        })
+        .catch(err => {
+            console.error('Unable to connect to the database:', err);
+        });
 }
+
 //Test Redis connection
-function testRedis(){
+function testRedis() {
     redis.set('test', 'test1', function(err, reply) {
         console.log(reply);
     });
@@ -52,15 +53,15 @@ function testRedis(){
 }
 
 sqldb.sequelize.sync()
-.then(wsInitPromise)
-.then(primus => {
-   app.primus = primus;
-})
-.then(seedDatabaseIfNeeded)
-.then(startServer)
-.catch(err => {
-   console.log('Server failed to start due to error: %s', err);
-   });
+    .then(wsInitPromise)
+    .then(primus => {
+        app.primus = primus;
+    })
+    .then(seedDatabaseIfNeeded)
+    .then(startServer)
+    .catch(err => {
+        console.log('Server failed to start due to error: %s', err);
+    });
 
 // Expose app
 exports = module.exports = app;
