@@ -20,6 +20,8 @@ export default function(sequelize, DataTypes) {
         volume: DataTypes.DECIMAL(19, 2).UNSIGNED,
         create_at: DataTypes.DATE,
         state: DataTypes.INTEGER,
-        order_type: DataTypes.INTEGER
+        order_status: DataTypes.ENUM('NEW','PARTIALLY_FILLED','FILLED','CANCELED'),
+        order_type: DataTypes.ENUM('BUY','SELL'),
+        pair: DataTypes.STRING
     });
 }

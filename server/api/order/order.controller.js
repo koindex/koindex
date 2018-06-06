@@ -8,6 +8,9 @@
  * DELETE  /api/orders/:id          ->  destroy
  */
 
+
+//INSERT INTO "Trades" ("trade_id","bid_id","ask_id","price","volumn","pair") VALUES (DEFAULT,1,2,12.3,10.4,'USD-ETH')
+//INSERT INTO "Orders" ("order_id","user_id","price", "volumn", "state","pair","order_type") VALUES (DEFAULT,1,2.23,12.3,1,'USD-ETH')
 'use strict';
 
 import { applyPatch } from 'fast-json-patch';
@@ -321,3 +324,124 @@ export function destroy(req, res) {
         .then(removeEntity(res))
         .catch(handleError(res));
 }
+
+export function getByUserId(req, res) {
+    return Order.findAll({
+        where: {
+            user_id: req.params.User_id
+        }
+    })
+        .then(handleEntityNotFound(res))
+        .then(respondWithResult(res))
+        .catch(handleError(res));
+}
+
+//fire a call to database.
+export function findFilledByPair(req, res) {
+    return Order.findAll({
+        where: {
+            pair: req.params.pair,
+            order_status: 'FILLED'
+        }
+    })
+    .then(handleEntityNotFound(res))
+    .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+
+export function findFilledOrdersByPair(req, res) {
+    let pair = req.params.pair;
+
+    const askPromise = getFromSetByPair('ask',pair);
+    askPromise.then(function getTradeSet(tradeSet){
+        res.send(tradeSet);
+    }).catch(function handleErrors(error) {
+        console.log(error);
+    });
+}
+
+
+export function getNewOrdersByPair(req, res) {
+    let pair = req.params.pair;
+    let orders = {};
+
+    const askPromise = getFromSetByPair('ask',pair);
+    askPromise.then(function getAskSet(askSet){
+        orders.ask = askSet;
+        const bidPromise = getFromSetByPair('bid', pair);
+        bidPromise.then(function getBidSet(bidSet) {
+            orders.bid = bidSet;
+            res.send(orders);
+        }).catch(function handleErrors(error) {
+            console.log(error);
+        });
+    }).catch(function handleErrors(error) {
+        console.log(error);
+    });
+}
+
+// Update a cancelled order from the DB
+export function updateCancelledOrders(req, res) {
+    console.log(req.body);
+    let orderId = req.body.id;
+    let pair = req.body.pair;
+    let side = req.body.side;
+
+    const promise = matchOrderFromSetById(side, pair, orderId);
+    promise.then(function getTarget(target) {
+        const targetPromise = removeFromSet(side, pair,target);
+        targetPromise.then(function callback(msg) {
+            res.send(msg);
+        }).catch(function handleErrors(error) {
+            console.log(error);
+        });
+    }).catch(function handleErrors(error) {
+        console.log(error);
+    });
+}
+
+
+function getFromSetByPair(side, pair) {
+    return new Promise((resolve, reject) => {
+        redis.zrange(side.toUpperCase() + 'SET_' + pair.toUpperCase(), 0, -1, (err, result) => {
+                if(err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+    });
+}
+
+function matchOrderFromSetById(side, pair, orderId) {
+    return new Promise((resolve, reject) => {
+        redis.zscan(side.toUpperCase() + 'SET_' + pair, 0, 'MATCH', '*' + orderId + '*', (err, result) => {
+            if(err) {
+                reject(err);
+            } else {
+                resolve(result[1][0]);
+            }
+        });
+    });
+}
+
+function removeFromSet(side, pair, target) {
+    return new Promise((resolve, reject) => {
+        redis.zrem(side.toUpperCase() + 'SET_' + pair, target,(err, result) => {
+            if(err) {
+                reject(err);
+            } else {
+                const msg = 'Order is cancelled successfully.';
+                resolve(msg);
+            }
+        });
+    });
+}
+
+/*return Order.upsert({
+                order_status: 'CANCELED'}, {
+                where: {
+                    _id: orderId
+                }
+            });*/
