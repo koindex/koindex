@@ -18,6 +18,20 @@ function handleError(res, statusCode) {
     };
 }
 
+export function checkBalance(userId) {
+    return User.find({
+        where: {
+            _id: userId
+        }
+    })
+        .then(user => {
+            if(!user) {
+                throw new Error('user not found');
+            }
+            return user.balance;
+        });
+}
+
 /**
  * Get list of users
  * restriction: 'admin'

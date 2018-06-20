@@ -17,7 +17,7 @@ export default function(sequelize, DataTypes) {
 
         },
         price: DataTypes.DECIMAL(19, 2).UNSIGNED,
-        volumn: DataTypes.DECIMAL(19, 2).UNSIGNED,
+        volume: DataTypes.DECIMAL(19, 2).UNSIGNED,
         create_at: DataTypes.DATE,
         state: DataTypes.INTEGER,
         order_type: DataTypes.INTEGER

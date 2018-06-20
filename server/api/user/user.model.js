@@ -35,7 +35,7 @@ export default function(sequelize, DataTypes) {
             }
         },
         balance: DataTypes.DECIMAL(19, 2).UNSIGNED,
-        creat_at: DataTypes.DATE,
+        created_at: DataTypes.DATE,
         provider: DataTypes.STRING,
         salt: DataTypes.STRING
     }, {
@@ -56,6 +56,12 @@ export default function(sequelize, DataTypes) {
                 return {
                     _id: this._id,
                     role: this.role
+                };
+            },
+
+            balance() {
+                return {
+                    balance: this.balance
                 };
             }
         },
